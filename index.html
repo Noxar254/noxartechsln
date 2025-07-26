@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noxartech Solution - Tech Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Noxartech Solution Logo" class="logo-img">
+                    <span>Noxartech Solution</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#services" class="nav-link dropdown-toggle">
+                        Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#web-dev" class="dropdown-link">Web Development</a></li>
+                        <li><a href="#app-dev" class="dropdown-link">App Development</a></li>
+                        <li><a href="#graphics" class="dropdown-link">Graphics & Design</a></li>
+                        <li><a href="#printing" class="dropdown-link">Printing & Branding</a></li>
+                        <li><a href="#consulting" class="dropdown-link">IT Consulting</a></li>
+                        <li><a href="#cybersecurity" class="dropdown-link">Cybersecurity</a></li>
+                        <li><a href="#cloud" class="dropdown-link">Cloud Solutions</a></li>
+                        <li><a href="#training" class="dropdown-link">Tech Training & Mentorship</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#insights" class="nav-link">Insights</a>
+                </li>
+                <li class="nav-item coming-soon-item">
+                    <a href="#coming-soon" class="nav-link coming-soon-btn">Coming Soon</a>
+                </li>
+                <li class="nav-item cta-item mobile-cta">
+                    <a href="#quote" class="nav-link cta-btn">Request a Quote</a>
+                </li>
+            </ul>
+
+            <!-- Right side container -->
+            <div class="nav-right">
+                <!-- Request Quote Button -->
+                <div class="nav-item cta-item">
+                    <a href="#quote" class="nav-link cta-btn">Request a Quote</a>
+                </div>
+
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <button class="theme-btn" id="themeToggle">
+                        <i class="fas fa-sun light-icon"></i>
+                        <i class="fas fa-moon dark-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Video Background -->
+        <video class="hero-video" autoplay muted loop>
+            <source src="images/hero section.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Video Overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="hero-title-main">Innovative Tech Solutions</span>
+                        <span class="hero-title-sub">for Your Business Growth</span>
+                    </h1>
+                    <p class="hero-description">
+                        Transform your digital presence with cutting-edge technology and comprehensive IT solutions.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn btn-primary">
+                            Get Started
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#about" class="btn btn-secondary">
+                            Learn More
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-empty">
+                    <!-- Left empty for visual balance -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-indicator">
+            <a href="#about" class="scroll-btn">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="about-title">About Noxartech Solution</h2>
+                    <p class="about-description">
+                        We are a forward-thinking technology company dedicated to transforming businesses through innovative digital solutions. With years of expertise in web development, app creation, and comprehensive IT services, we help organizations embrace the digital future.
+                    </p>
+                    <p class="about-description">
+                        Our team of skilled professionals combines creativity with technical excellence to deliver solutions that not only meet your current needs but also position your business for future growth and success.
+                    </p>
+                    <div class="about-button">
+                        <a href="#services" class="btn btn-about">
+                            Learn More About Us
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="images/office.jpg" alt="Noxartech Solution Office" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="services-header">
+                <h2 class="services-title">Our Services</h2>
+                <p class="services-subtitle">Comprehensive technology solutions tailored to your business needs</p>
+            </div>
+            <div class="services-grid">
+                <!-- Web Development -->
+                <div class="service-card" data-service="web-dev">
+                    <div class="service-title">Web Development</div>
+                    <div class="service-overlay">
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern technologies for optimal performance and user experience.</p>
+                    </div>
+                </div>
+
+                <!-- App Development -->
+                <div class="service-card" data-service="app-dev">
+                    <div class="service-title">App Development</div>
+                    <div class="service-overlay">
+                        <h3>App Development</h3>
+                        <p>Native and cross-platform mobile applications designed to engage users and drive business growth.</p>
+                    </div>
+                </div>
+
+                <!-- Graphics & Design -->
+                <div class="service-card" data-service="graphics">
+                    <div class="service-title">Graphics & Design</div>
+                    <div class="service-overlay">
+                        <h3>Graphics & Design</h3>
+                        <p>Creative visual solutions including logos, branding, UI/UX design, and marketing materials.</p>
+                    </div>
+                </div>
+
+                <!-- Printing & Branding -->
+                <div class="service-card" data-service="printing">
+                    <div class="service-title">Printing & Branding</div>
+                    <div class="service-overlay">
+                        <h3>Printing & Branding</h3>
+                        <p>Complete branding solutions with professional printing services for business cards, brochures, and marketing materials.</p>
+                    </div>
+                </div>
+
+                <!-- IT Consulting -->
+                <div class="service-card" data-service="consulting">
+                    <div class="service-title">IT Consulting</div>
+                    <div class="service-overlay">
+                        <h3>IT Consulting</h3>
+                        <p>Strategic technology consulting to optimize your IT infrastructure and digital transformation initiatives.</p>
+                    </div>
+                </div>
+
+                <!-- Cybersecurity -->
+                <div class="service-card" data-service="cybersecurity">
+                    <div class="service-title">Cybersecurity</div>
+                    <div class="service-overlay">
+                        <h3>Cybersecurity</h3>
+                        <p>Comprehensive security solutions to protect your business from cyber threats and ensure data integrity.</p>
+                    </div>
+                </div>
+
+                <!-- Cloud Solutions -->
+                <div class="service-card" data-service="cloud">
+                    <div class="service-title">Cloud Solutions</div>
+                    <div class="service-overlay">
+                        <h3>Cloud Solutions</h3>
+                        <p>Scalable cloud infrastructure and migration services to enhance efficiency and reduce operational costs.</p>
+                    </div>
+                </div>
+
+                <!-- Tech Training & Mentorship -->
+                <div class="service-card" data-service="training">
+                    <div class="service-title">Tech Training & Mentorship</div>
+                    <div class="service-overlay">
+                        <h3>Tech Training & Mentorship</h3>
+                        <p>Professional development programs and mentorship to upskill your team in latest technologies and best practices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Show More Button (Mobile Only) -->
+            <button class="show-more-btn" id="showMoreBtn">
+                Show More Services
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-container">
+            <div class="projects-header">
+                <h2 class="projects-title">Our Projects</h2>
+                <p class="projects-subtitle">Showcasing our expertise through successful project implementations</p>
+            </div>
+            <div class="projects-scroll-container">
+                <div class="projects-grid">
+                    <!-- E-commerce Website -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg" alt="E-commerce Website" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">E-commerce Platform</h3>
+                            <p class="project-description">Modern online shopping platform with secure payment integration, inventory management, and user-friendly interface.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Car Rental & Sales Website -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg" alt="Car Rental Website" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Car Rental & Sales</h3>
+                            <p class="project-description">Comprehensive automotive platform for vehicle rentals and sales with booking system and inventory management.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Properties Website -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg" alt="Properties Website" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Real Estate Platform</h3>
+                            <p class="project-description">Advanced property listing platform with search filters, virtual tours, and agent management system.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Car Wash Management -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg" alt="Car Wash Management" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Car Wash Management</h3>
+                            <p class="project-description">Complete business management system for car wash services with scheduling, payments, and customer tracking.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Tour & Travel Website -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg" alt="Tour & Travel Website" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Tour & Travel Portal</h3>
+                            <p class="project-description">Dynamic travel booking platform with itinerary planning, payment gateway, and customer reviews system.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Hospital Management System -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg" alt="Hospital Management" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Hospital Management</h3>
+                            <p class="project-description">Comprehensive healthcare management system with patient records, appointment scheduling, and billing.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Hospital Website -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg" alt="Hospital Website" class="project-img">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Hospital Website</h3>
+                            <p class="project-description">Professional healthcare website with doctor profiles, online appointments, and health information portal.</p>
+                            <button class="project-btn">View Project</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show More Button (Mobile Only) -->
+            <button class="show-more-projects-btn" id="showMoreProjectsBtn">
+                Show More Projects
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Insights & Blogs Section -->
+    <section class="insights" id="insights">
+        <div class="insights-container">
+            <div class="insights-header">
+                <div class="insights-header-content">
+                    <h2 class="insights-title">Insights & Blogs</h2>
+                    <p class="insights-subtitle">Stay updated with the latest technology trends, industry insights, and expert perspectives</p>
+                </div>
+                <div class="insights-header-line"></div>
+            </div>
+
+            <div class="insights-content">
+                <!-- Featured Article -->
+                <div class="featured-article">
+                    <div class="featured-article-image">
+                        <img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg" alt="Future of Web Development" class="featured-img">
+                        <div class="featured-overlay">
+                            <span class="featured-badge">Featured</span>
+                        </div>
+                    </div>
+                    <div class="featured-article-content">
+                        <div class="article-meta">
+                            <span class="article-date">January 15, 2025</span>
+                            <span class="article-category">Web Development</span>
+                        </div>
+                        <h3 class="featured-article-title">The Future of Web Development: Trends Shaping 2025</h3>
+                        <p class="featured-article-excerpt">
+                            Explore cutting-edge technologies revolutionizing web development and discover what's driving the future of digital experiences.
+                        </p>
+                        <a href="#read-more" class="read-more-link">
+                            Read Full Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Articles Grid -->
+                <div class="articles-grid">
+                    <!-- Article 1 -->
+                    <article class="article-item">
+                        <div class="article-image-container">
+                            <img src="https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg" alt="Cybersecurity Best Practices" class="article-img">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">January 10, 2025</span>
+                                <span class="article-category">Cybersecurity</span>
+                            </div>
+                            <h4 class="article-title">Essential Cybersecurity Best Practices for Modern Businesses</h4>
+                            <p class="article-excerpt">
+                                Learn essential security measures every business should implement to protect digital assets.
+                            </p>
+                            <a href="#read-more" class="article-link">
+                                Read More <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-item">
+                        <div class="article-image-container">
+                            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Cloud Migration" class="article-img">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">January 5, 2025</span>
+                                <span class="article-category">Cloud Solutions</span>
+                            </div>
+                            <h4 class="article-title">Cloud Migration Strategies: A Complete Guide for Enterprises</h4>
+                            <p class="article-excerpt">
+                                Navigate cloud migration complexities with proven strategies for seamless digital transformation.
+                            </p>
+                            <a href="#read-more" class="article-link">
+                                Read More <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-item">
+                        <div class="article-image-container">
+                            <img src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg" alt="Mobile App Trends" class="article-img">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">December 28, 2024</span>
+                                <span class="article-category">Mobile App</span>
+                            </div>
+                            <h4 class="article-title">Trends That Will Dominate 2025</h4>
+                            <p class="article-excerpt">
+                                Discover mobile development trends shaping the future of apps and user experiences.
+                            </p>
+                            <a href="#read-more" class="article-link">
+                                Read More <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-item">
+                        <div class="article-image-container">
+                            <img src="https://images.pexels.com/photos/3861961/pexels-photo-3861961.jpeg" alt="AI in Business" class="article-img">
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">December 20, 2024</span>
+                                <span class="article-category">AI</span>
+                            </div>
+                            <h4 class="article-title">How AI is Transforming Business Operations</h4>
+                            <p class="article-excerpt">
+                                Explore real-world AI applications driving business growth and operational efficiency.
+                            </p>
+                            <a href="#read-more" class="article-link">
+                                Read More <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- View All Articles Button (Mobile Only) -->
+                <button class="view-all-articles-btn" id="viewAllArticlesBtn">
+                    View All Articles
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+
+                <!-- Newsletter Subscription -->
+                <div class="newsletter-section">
+                    <div class="newsletter-content">
+                        <div class="newsletter-text">
+                            <h3 class="newsletter-title">Stay Informed</h3>
+                            <p class="newsletter-description">
+                                Subscribe to our newsletter and get the latest insights, trends, and expert tips delivered directly to your inbox.
+                            </p>
+                        </div>
+                        <div class="newsletter-form">
+                            <form class="subscription-form">
+                                <div class="form-group">
+                                    <input type="email" class="email-input" placeholder="Enter your email address" required>
+                                    <button type="submit" class="subscribe-btn">
+                                        Subscribe <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Main Footer Content -->
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-section company-info">
+                    <div class="footer-logo">
+                        <img src="images/logo.png" alt="Noxartech Solution Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Noxartech Solution</span>
+                    </div>
+                    <p class="footer-description">
+                        Transforming businesses through innovative digital solutions. We deliver cutting-edge technology services that drive growth and success.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section quick-links">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home" class="footer-link">Home</a></li>
+                        <li><a href="#about" class="footer-link">About Us</a></li>
+                        <li><a href="#services" class="footer-link">Services</a></li>
+                        <li><a href="#projects" class="footer-link">Projects</a></li>
+                        <li><a href="#insights" class="footer-link">Insights</a></li>
+                        <li><a href="#quote" class="footer-link">Get Quote</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section services-links">
+                    <h4 class="footer-title">Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#web-dev" class="footer-link">Web Development</a></li>
+                        <li><a href="#app-dev" class="footer-link">App Development</a></li>
+                        <li><a href="#graphics" class="footer-link">Graphics & Design</a></li>
+                        <li><a href="#cybersecurity" class="footer-link">Cybersecurity</a></li>
+                        <li><a href="#cloud" class="footer-link">Cloud Solutions</a></li>
+                        <li><a href="#training" class="footer-link">Tech Training</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section contact-info">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Tech Street, Digital City, TC 12345</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@noxartechsolution.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2025 Noxartech Solution. All rights reserved.</p>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="#privacy" class="footer-bottom-link">Privacy Policy</a>
+                        <a href="#terms" class="footer-bottom-link">Terms of Service</a>
+                        <a href="#cookies" class="footer-bottom-link">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
