@@ -477,3 +477,244 @@ if (typeof module !== 'undefined' && module.exports) {
         Utils
     };
 }
+
+// Quote Form Manager
+class QuoteFormManager {
+    constructor() {
+        this.form = document.getElementById('quoteForm');
+        this.init();
+    }
+
+    init() {
+        if (this.form) {
+            this.bindEvents();
+            this.setupFormValidation();
+        }
+    }
+
+    bindEvents() {
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Add real-time validation
+        const inputs = this.form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearErrors(input));
+        });
+    }
+
+    setupFormValidation() {
+        // Add required field indicators
+        const requiredFields = this.form.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            const label = field.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                if (!label.textContent.includes('*')) {
+                    label.textContent += ' *';
+                }
+            }
+        });
+    }
+
+    validateField(field) {
+        const value = field.value.trim();
+        const isRequired = field.hasAttribute('required');
+
+        // Clear previous errors
+        this.clearErrors(field);
+
+        if (isRequired && !value) {
+            this.showError(field, 'This field is required');
+            return false;
+        }
+
+        // Email validation
+        if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                this.showError(field, 'Please enter a valid email address');
+                return false;
+            }
+        }
+
+        // Phone validation
+        if (field.type === 'tel' && value) {
+            const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+            if (!phoneRegex.test(value)) {
+                this.showError(field, 'Please enter a valid phone number');
+                return false;
+            }
+        }
+
+        // URL validation
+        if (field.type === 'url' && value) {
+            try {
+                new URL(value);
+            } catch {
+                this.showError(field, 'Please enter a valid URL');
+                return false;
+            }
+        }
+
+        this.showSuccess(field);
+        return true;
+    }
+
+    showError(field, message) {
+        field.style.borderColor = '#ef4444';
+        field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+        
+        // Create or update error message
+        let errorDiv = field.parentNode.querySelector('.error-message');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.cssText = 'color: #ef4444; font-size: 0.875rem; margin-top: 5px;';
+            field.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+
+    showSuccess(field) {
+        field.style.borderColor = '#22c55e';
+        field.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.1)';
+    }
+
+    clearErrors(field) {
+        field.style.borderColor = '';
+        field.style.boxShadow = '';
+        
+        const errorDiv = field.parentNode.querySelector('.error-message');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+
+    validateForm() {
+        const fields = this.form.querySelectorAll('input, select, textarea');
+        let isValid = true;
+
+        fields.forEach(field => {
+            if (!this.validateField(field)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+
+        if (!this.validateForm()) {
+            this.showNotification('Please correct the errors above', 'error');
+            return;
+        }
+
+        const submitBtn = this.form.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+
+        try {
+            // Collect form data
+            const formData = new FormData(this.form);
+            const data = Object.fromEntries(formData);
+
+            // Simulate form submission (replace with actual submission logic)
+            await this.simulateSubmission(data);
+
+            // Show success message
+            this.showNotification('Quote request submitted successfully! We\'ll get back to you within 24 hours.', 'success');
+            
+            // Reset form
+            this.form.reset();
+            
+            // Clear all field styles
+            const fields = this.form.querySelectorAll('input, select, textarea');
+            fields.forEach(field => this.clearErrors(field));
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+            this.showNotification('There was an error submitting your request. Please try again.', 'error');
+        } finally {
+            // Restore button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    async simulateSubmission(data) {
+        // Simulate API call delay
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('Quote request data:', data);
+                resolve();
+            }, 2000);
+        });
+    }
+
+    showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `quote-notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close">&times;</button>
+            </div>
+        `;
+
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: ${type === 'success' ? '#22c55e' : '#ef4444'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+
+        // Add to page
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Handle close button
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            this.hideNotification(notification);
+        });
+
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            this.hideNotification(notification);
+        }, 5000);
+    }
+
+    hideNotification(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }
+}
+
+// Initialize Quote Form Manager when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new QuoteFormManager();
+});

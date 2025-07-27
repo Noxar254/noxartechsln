@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote - Noxartech Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Noxartech Solution Logo" class="logo-img">
+                    <span>Noxartech Solution</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#services" class="nav-link dropdown-toggle">
+                        Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#web-dev" class="dropdown-link">Web Development</a></li>
+                        <li><a href="#app-dev" class="dropdown-link">App Development</a></li>
+                        <li><a href="#graphics" class="dropdown-link">Graphics & Design</a></li>
+                        <li><a href="#printing" class="dropdown-link">Printing & Branding</a></li>
+                        <li><a href="#digital-marketing" class="dropdown-link">Digital Marketing</a></li>
+                        <li><a href="#consulting" class="dropdown-link">IT Consulting</a></li>
+                        <li><a href="#cybersecurity" class="dropdown-link">Cybersecurity</a></li>
+                        <li><a href="#cloud" class="dropdown-link">Cloud Solutions</a></li>
+                        <li><a href="#training" class="dropdown-link">Tech Training & Mentorship</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#insights" class="nav-link">Insights</a>
+                </li>
+                <li class="nav-item coming-soon-item">
+                    <a href="#coming-soon" class="nav-link coming-soon-btn">Coming Soon</a>
+                </li>
+                <li class="nav-item cta-item mobile-cta">
+                    <a href="quote.html" class="nav-link cta-btn">Request a Quote</a>
+                </li>
+            </ul>
+
+            <!-- Right side container -->
+            <div class="nav-right">
+                <!-- Request Quote Button -->
+                <div class="nav-item cta-item">
+                    <a href="quote.html" class="nav-link cta-btn">Request a Quote</a>
+                </div>
+
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <button class="theme-btn" id="themeToggle">
+                        <i class="fas fa-sun light-icon"></i>
+                        <i class="fas fa-moon dark-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Quote Page Header -->
+    <section class="quote-header">
+        <div class="quote-header-container">
+            <div class="quote-header-content">
+                <h1 class="quote-title">Request a Quote</h1>
+                <p class="quote-subtitle">Tell us about your project and we'll provide you with a customized solution</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Form Section -->
+    <section class="quote-form-section" id="quote">
+        <div class="quote-form-container">
+            <div class="quote-form-content">
+                <!-- Form Introduction -->
+                <div class="form-intro">
+                    <h2 class="form-title">Get Your Custom Quote</h2>
+                    <p class="form-description">
+                        Ready to bring your vision to life? Fill out the form below and our team will get back to you within 24 hours with a detailed quote tailored to your specific needs.
+                    </p>
+                </div>
+
+                <!-- Quote Form -->
+                <div class="quote-form-wrapper">
+                    <form class="quote-form" id="quoteForm">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="company" class="form-label">Company/Organization</label>
+                                <input type="text" id="company" name="company" class="form-input">
+                            </div>
+                        </div>
+
+                        <!-- Project Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Project Information</h3>
+                            <div class="form-group">
+                                <label for="service" class="form-label">Service Required *</label>
+                                <select id="service" name="service" class="form-select" required>
+                                    <option value="">Select a service</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="app-development">App Development</option>
+                                    <option value="graphics-design">Graphics & Design</option>
+                                    <option value="printing-branding">Printing & Branding</option>
+                                    <option value="digital-marketing">Digital Marketing</option>
+                                    <option value="it-consulting">IT Consulting</option>
+                                    <option value="cybersecurity">Cybersecurity</option>
+                                    <option value="cloud-solutions">Cloud Solutions</option>
+                                    <option value="tech-training">Tech Training & Mentorship</option>
+                                    <option value="other">Other (Please specify in description)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget" class="form-label">Budget Range</label>
+                                <select id="budget" name="budget" class="form-select">
+                                    <option value="">Select budget range</option>
+                                    <option value="under-50k">Under KSh 50,000</option>
+                                    <option value="50k-100k">KSh 50,000 - 100,000</option>
+                                    <option value="100k-250k">KSh 100,000 - 250,000</option>
+                                    <option value="250k-500k">KSh 250,000 - 500,000</option>
+                                    <option value="500k-1m">KSh 500,000 - 1,000,000</option>
+                                    <option value="above-1m">Above KSh 1,000,000</option>
+                                    <option value="discuss">Prefer to discuss</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeline" class="form-label">Project Timeline</label>
+                                <select id="timeline" name="timeline" class="form-select">
+                                    <option value="">Select timeline</option>
+                                    <option value="asap">ASAP</option>
+                                    <option value="1-2-weeks">1-2 weeks</option>
+                                    <option value="1-month">1 month</option>
+                                    <option value="2-3-months">2-3 months</option>
+                                    <option value="3-6-months">3-6 months</option>
+                                    <option value="6-months-plus">6+ months</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="form-label">Project Description *</label>
+                                <textarea id="description" name="description" class="form-textarea" rows="6" placeholder="Please provide detailed information about your project requirements, goals, and any specific features you need..." required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">Additional Information</h3>
+                            <div class="form-group">
+                                <label for="reference" class="form-label">Reference Website/App (if any)</label>
+                                <input type="url" id="reference" name="reference" class="form-input" placeholder="https://example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="additionalNotes" class="form-label">Additional Notes</label>
+                                <textarea id="additionalNotes" name="additionalNotes" class="form-textarea" rows="4" placeholder="Any additional information or special requirements..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-submit">
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Quote Request
+                            </button>
+                            <p class="submit-note">
+                                We'll review your request and get back to you within 24 hours with a detailed quote.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Alternative -->
+                <div class="contact-alternative">
+                    <div class="alternative-divider">
+                        <span>Or contact us directly</span>
+                    </div>
+                    <div class="contact-options">
+                        <a href="https://wa.me/254762852457" class="contact-option whatsapp-option" target="_blank" rel="noopener">
+                            <i class="fab fa-whatsapp"></i>
+                            <div class="contact-text">
+                                <span class="contact-title">WhatsApp</span>
+                                <span class="contact-info">+254762852457</span>
+                            </div>
+                        </a>
+                        <a href="mailto:info@noxartechsln.tech" class="contact-option email-option">
+                            <i class="fas fa-envelope-open"></i>
+                            <div class="contact-text">
+                                <span class="contact-title">Email</span>
+                                <span class="contact-info">info@noxartechsln.tech</span>
+                            </div>
+                        </a>
+                        <a href="tel:+254762852457" class="contact-option phone-option">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-text">
+                                <span class="contact-title">Call</span>
+                                <span class="contact-info">+254762852457</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/254762852457" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">Chat with us</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
