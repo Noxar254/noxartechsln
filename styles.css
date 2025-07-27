@@ -1128,6 +1128,14 @@ html {
     background-image: linear-gradient(rgba(124, 58, 237, 0.7), rgba(109, 40, 217, 0.7)), url('https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg');
 }
 
+.service-card[data-service="digital-marketing"] {
+    background-image: linear-gradient(rgba(236, 72, 153, 0.7), rgba(219, 39, 119, 0.7)), url('https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg');
+}
+
+.service-card[data-service="pos-software"] {
+    background-image: linear-gradient(rgba(16, 185, 129, 0.7), rgba(5, 150, 105, 0.7)), url('https://images.pexels.com/photos/4386339/pexels-photo-4386339.jpeg');
+}
+
 .service-card[data-service="consulting"] {
     background-image: linear-gradient(rgba(234, 88, 12, 0.7), rgba(194, 65, 12, 0.7)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg');
 }
