@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Noxartech Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* About Us Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(100px); }
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .breadcrumb {
+            background: var(--surface-color);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-list li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-list li:not(:last-child)::after {
+            content: '/';
+            margin: 0 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Slim Section Styles */
+        .slim-section {
+            padding: 3rem 0;
+            background: var(--background-color);
+        }
+
+        .slim-section:nth-child(even) {
+            background: var(--surface-color);
+        }
+
+        .slim-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .slim-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .slim-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .slim-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .slim-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .slim-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .slim-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--background-color);
+            color: var(--text-primary);
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: var(--surface-color);
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Vision, Mission, Core Values */
+        .values-section {
+            padding: 4rem 0;
+            background: var(--surface-color);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: var(--background-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 3rem 0;
+            background: var(--background-color);
+        }
+
+        .team-founder {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founder-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .founder-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .founder-details {
+            padding-top: 0;
+        }
+
+        .founder-details h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .founder-role {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .founder-details p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* Final Details Section */
+        .final-details {
+            padding: 3rem 0;
+            background: var(--surface-color);
+            text-align: center;
+        }
+
+        .final-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .final-details p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 2rem 0 1rem 0;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .breadcrumb nav {
+                padding: 0 1rem;
+            }
+
+            .slim-container {
+                padding: 0 1rem;
+                max-width: 100%;
+            }
+
+            .slim-section {
+                padding: 2rem 0;
+            }
+
+            .slim-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .slim-image {
+                margin: 0 -1rem;
+                border-radius: 0;
+                width: calc(100% + 2rem);
+            }
+
+            .slim-image img {
+                border-radius: 0;
+                height: 250px;
+            }
+
+            .slim-text {
+                padding: 0 0.5rem;
+            }
+
+            .slim-text h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .slim-text p {
+                font-size: 1rem;
+                line-height: 1.6;
+                text-align: left;
+                margin-bottom: 1rem;
+            }
+
+            .stats-section {
+                padding: 3rem 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .stat-item {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .values-section {
+                padding: 3rem 0;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .value-card {
+                margin: 0 0.5rem;
+                padding: 1.5rem;
+            }
+
+            .team-section {
+                padding: 2rem 0;
+            }
+
+            .team-founder {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: left;
+            }
+
+            .founder-image {
+                max-width: 100%;
+                margin: 0 -1rem;
+                width: calc(100% + 2rem);
+                border-radius: 0;
+            }
+
+            .founder-image img {
+                border-radius: 0;
+                height: 300px;
+            }
+
+            .founder-details {
+                padding: 0 0.5rem;
+            }
+
+            .founder-details h3 {
+                font-size: 1.8rem;
+                text-align: left;
+            }
+
+            .founder-role {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+
+            .founder-details p {
+                font-size: 1rem;
+                line-height: 1.6;
+                text-align: left;
+            }
+
+            .final-details {
+                padding: 2rem 0;
+            }
+
+            .final-details h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .final-details p {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+                padding: 0 1rem;
+                max-width: 100%;
+                text-align: left;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+                margin: 0 1rem;
+                display: block;
+                text-align: center;
+                max-width: calc(100% - 2rem);
+            }
+
+            .team-title {
+                margin-bottom: 2rem;
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-subtitle {
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Animation for counting */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: countUp 0.8s ease-out;
+        }
+
+        /* Additional utility classes */
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .team-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .arrow-icon {
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Noxartech Solution Logo" class="logo-img">
+                    <span>Noxartech Solution</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="index.html#services" class="nav-link dropdown-toggle">
+                        Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#web-dev" class="dropdown-link">Web Development</a></li>
+                        <li><a href="index.html#app-dev" class="dropdown-link">App Development</a></li>
+                        <li><a href="index.html#graphics" class="dropdown-link">Graphics & Design</a></li>
+                        <li><a href="index.html#printing" class="dropdown-link">Printing & Branding</a></li>
+                        <li><a href="index.html#digital-marketing" class="dropdown-link">Digital Marketing</a></li>
+                        <li><a href="index.html#pos-software" class="dropdown-link">POS & Software</a></li>
+                        <li><a href="index.html#consulting" class="dropdown-link">IT Consulting</a></li>
+                        <li><a href="index.html#cybersecurity" class="dropdown-link">Cybersecurity</a></li>
+                        <li><a href="index.html#cloud" class="dropdown-link">Cloud Solutions</a></li>
+                        <li><a href="index.html#training" class="dropdown-link">Tech Training & Mentorship</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#insights" class="nav-link">Insights</a>
+                </li>
+                <li class="nav-item coming-soon-item">
+                    <a href="index.html#coming-soon" class="nav-link coming-soon-btn">Coming Soon</a>
+                </li>
+                <li class="nav-item cta-item mobile-cta">
+                    <a href="quote.html" class="nav-link cta-btn">Request a Quote</a>
+                </li>
+            </ul>
+
+            <!-- Right side container -->
+            <div class="nav-right">
+                <!-- Request Quote Button -->
+                <div class="nav-item cta-item">
+                    <a href="quote.html" class="nav-link cta-btn">Request a Quote</a>
+                </div>
+
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <button class="theme-btn" id="themeToggle">
+                        <i class="fas fa-sun light-icon"></i>
+                        <i class="fas fa-moon dark-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <nav>
+            <ul class="breadcrumb-list">
+                <li><a href="index.html">Home</a></li>
+                <li>About Us</li>
+            </ul>
+        </nav>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="slim-container">
+            <h1>About Noxartech Solution</h1>
+            <p>Transforming businesses through innovative digital solutions and cutting-edge technology expertise</p>
+        </div>
+    </section>
+
+    <!-- Company Overview Section -->
+    <section class="slim-section">
+        <div class="slim-container">
+            <div class="slim-content">
+                <div class="slim-text">
+                    <h2>Our Story</h2>
+                    <p>Founded with a vision to bridge the gap between technology and business success, Noxartech Solution has grown into a trusted partner for organizations seeking digital transformation.</p>
+                    <p>We specialize in creating comprehensive technology solutions that not only meet today's challenges but also prepare businesses for tomorrow's opportunities. Our expertise spans across web development, mobile applications, digital marketing, and enterprise software solutions.</p>
+                    <p>With a commitment to excellence and innovation, we have successfully delivered over 200+ projects, helping businesses achieve their digital goals and accelerate growth.</p>
+                </div>
+                <div class="slim-image">
+                    <img src="images/office.jpg" alt="Noxartech Solution Office">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section with Counting Animation -->
+    <section class="stats-section">
+        <div class="slim-container">
+            <h2>Our Impact in Numbers</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="300">0</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="4">0</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision, Mission, Core Values Section -->
+    <section class="values-section">
+        <div class="slim-container">
+            <h2 class="section-title">Our Foundation</h2>
+            <p class="section-subtitle">The principles that guide everything we do</p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To be the leading technology partner that empowers businesses to achieve digital excellence and sustainable growth through innovative solutions and exceptional service delivery.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To deliver cutting-edge technology solutions that transform business operations, enhance customer experiences, and drive measurable results while building long-term partnerships based on trust and excellence.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Core Values</h3>
+                    <p><strong>Innovation:</strong> Embracing new technologies and creative solutions<br>
+                    <strong>Excellence:</strong> Delivering quality in every project<br>
+                    <strong>Integrity:</strong> Building trust through transparency<br>
+                    <strong>Collaboration:</strong> Working together for success</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="slim-container">
+            <h2 class="team-title">Meet Our Founder</h2>
+            <div class="team-founder">
+                <div class="founder-image">
+                    <img src="images/office.jpg" alt="Founder - Noxartech Solution">
+                </div>
+                <div class="founder-details">
+                    <h3>Humphrey Abwao</h3>
+                    <div class="founder-role">Founder & CEO</div>
+                    <p>With over 8 years of experience in technology and business development, Humphrey founded Noxartech Solution with a mission to help businesses leverage technology for growth and success.</p>
+                    <p>His expertise in software development, digital strategy, and business operations has been instrumental in establishing Noxartech as a trusted technology partner for businesses across various industries.</p>
+                    <p>Humphrey holds a degree in Computer Science and is passionate about emerging technologies, innovation, and helping businesses achieve their digital transformation goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Details Section -->
+    <section class="final-details">
+        <div class="slim-container">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>At Noxartech Solution, we're more than just a technology company – we're your strategic partner in digital transformation. Our comprehensive approach combines technical expertise with business insight to deliver solutions that drive real results.</p>
+            <p>Whether you're looking to build a new website, develop a mobile app, enhance your digital presence, or implement enterprise solutions, we have the experience and dedication to bring your vision to life.</p>
+            <a href="index.html#contact" class="cta-button">
+                Start Your Project Today
+                <i class="fas fa-arrow-right arrow-icon"></i>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Counting Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const label = counter.nextElementSibling.textContent.toLowerCase();
+                const shouldAddPlus = label.includes('customers') || label.includes('team members');
+                
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = shouldAddPlus ? target + '+' : target;
+                        counter.classList.add('animated');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for triggering animations
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.classList.contains('stats-section')) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Start observing the stats section
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
