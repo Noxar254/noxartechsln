@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Form Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        .status.success {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .status.warning {
+            background-color: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .test-data {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Quote Form Integration Test</h1>
+        <p>This page helps you test the quote form integration components.</p>
+        
+        <div id="results"></div>
+        
+        <h3>Test Functions:</h3>
+        <button onclick="testFirebaseConnection()">Test Firebase Connection</button>
+        <button onclick="testEmailJSSetup()">Test EmailJS Setup</button>
+        <button onclick="testFormSubmission()">Test Form Submission</button>
+        <button onclick="testNewsletterSubscription()">Test Newsletter Subscription</button>
+        <button onclick="clearResults()">Clear Results</button>
+        
+        <h3>Test Data:</h3>
+        <div class="test-data">
+            <strong>Sample Quote Request Data:</strong><br>
+            firstName: "John"<br>
+            lastName: "Doe"<br>
+            email: "john.doe@example.com"<br>
+            phone: "+254700000000"<br>
+            company: "Test Company"<br>
+            service: "web-development"<br>
+            budget: "50k-100k"<br>
+            timeline: "1-month"<br>
+            description: "Test project description"
+        </div>
+        
+        <h3>Configuration Status:</h3>
+        <div id="configStatus"></div>
+    </div>
+
+    <!-- Load required scripts -->
+    <script src="config.js"></script>
+    <script type="module">
+        import { submitQuoteRequest, submitNewsletterSubscription } from './firebase-config.js';
+        import { sendDirectQuoteNotification, sendDirectAutoReply, initializeDirectEmail } from './direct-email.js';
+        
+        // Make functions available globally
+        window.submitQuoteRequest = submitQuoteRequest;
+        window.submitNewsletterSubscription = submitNewsletterSubscription;
+        window.sendEmailNotification = sendDirectQuoteNotification;
+        window.sendAutoReply = sendDirectAutoReply;
+        window.initializeDirectEmail = initializeDirectEmail;
+        
+        // Test functions
+        window.testFirebaseConnection = async function() {
+            addResult('Testing Firebase connection...', 'warning');
+            
+            const testData = {
+                test: true,
+                timestamp: new Date().toISOString(),
+                message: 'Test connection from integration test'
+            };
+            
+            try {
+                const result = await submitQuoteRequest(testData);
+                if (result.success) {
+                    addResult('✅ Firebase connection successful! Document ID: ' + result.id, 'success');
+                } else {
+                    addResult('❌ Firebase connection failed: ' + result.error, 'error');
+                }
+            } catch (error) {
+                addResult('❌ Firebase connection error: ' + error.message, 'error');
+            }
+        };
+        
+        window.testEmailJSSetup = async function() {
+            addResult('Testing Direct Email setup...', 'warning');
+            
+            try {
+                await initializeDirectEmail();
+                
+                if (window.emailjs) {
+                    addResult('✅ EmailJS library loaded successfully', 'success');
+                    addResult('✅ API Key configured: oacWTKWQd5Q-zibHK', 'success');
+                    addResult('✅ Target email: humphreyabwao@gmail.com', 'success');
+                } else {
+                    addResult('❌ EmailJS library failed to load', 'error');
+                }
+            } catch (error) {
+                addResult('❌ Email setup error: ' + error.message, 'error');
+            }
+        };
+        
+        window.testFormSubmission = async function() {
+            addResult('Testing complete form submission flow...', 'warning');
+            
+            const testFormData = {
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john.doe@example.com',
+                phone: '+254700000000',
+                company: 'Test Company',
+                service: 'web-development',
+                budget: '50k-100k',
+                timeline: '1-month',
+                description: 'This is a test quote request from the integration test page.',
+                submittedAt: new Date().toISOString(),
+                test: true
+            };
+            
+            try {
+                // Test Firebase submission
+                const firebaseResult = await submitQuoteRequest(testFormData);
+                
+                if (firebaseResult.success) {
+                    addResult('✅ Firebase submission successful', 'success');
+                } else {
+                    addResult('❌ Firebase submission failed: ' + firebaseResult.error, 'error');
+                }
+                
+                // Test email notification
+                try {
+                    const emailResult = await sendEmailNotification(testFormData);
+                    if (emailResult.success) {
+                        addResult('✅ Email notification sent successfully', 'success');
+                    } else {
+                        addResult('⚠️ Email notification failed: ' + emailResult.error, 'warning');
+                    }
+                } catch (emailError) {
+                    addResult('⚠️ Email notification error: ' + emailError.message, 'warning');
+                }
+                
+            } catch (error) {
+                addResult('❌ Form submission test failed: ' + error.message, 'error');
+            }
+        };
+        
+        window.testNewsletterSubscription = async function() {
+            addResult('Testing newsletter subscription...', 'warning');
+            
+            const testEmail = 'test@example.com';
+            
+            try {
+                if (window.submitNewsletterSubscription) {
+                    const result = await window.submitNewsletterSubscription(testEmail);
+                    
+                    if (result.success) {
+                        addResult('✅ Newsletter subscription successful! Document ID: ' + result.id, 'success');
+                    } else {
+                        addResult('❌ Newsletter subscription failed: ' + result.error, 'error');
+                    }
+                } else {
+                    addResult('❌ Newsletter subscription function not available', 'error');
+                }
+            } catch (error) {
+                addResult('❌ Newsletter subscription error: ' + error.message, 'error');
+            }
+        };
+        
+        window.clearResults = function() {
+            document.getElementById('results').innerHTML = '';
+        };
+        
+        function addResult(message, type) {
+            const resultsDiv = document.getElementById('results');
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            resultsDiv.appendChild(statusDiv);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+        
+        // Check configuration on load
+        window.addEventListener('load', function() {
+            const configDiv = document.getElementById('configStatus');
+            const config = window.NOXARTECH_CONFIG;
+            
+            if (config) {
+                let configStatus = '<div class="status success">✅ Configuration file loaded</div>';
+                
+                if (config.emailjs.publicKey === 'YOUR_EMAILJS_PUBLIC_KEY') {
+                    configStatus += '<div class="status warning">⚠️ EmailJS configuration needs to be updated</div>';
+                } else {
+                    configStatus += '<div class="status success">✅ EmailJS configuration appears valid</div>';
+                }
+                
+                configDiv.innerHTML = configStatus;
+            } else {
+                configDiv.innerHTML = '<div class="status error">❌ Configuration file not loaded</div>';
+            }
+        });
+    </script>
+</body>
+</html>

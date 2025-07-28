@@ -305,6 +305,24 @@
         </div>
     </div>
 
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase configuration
+        import { submitQuoteRequest } from './firebase-config.js';
+        import { sendDirectQuoteNotification, sendDirectAutoReply, sendMailtoFallback } from './direct-email.js';
+        
+        // Make functions available globally for the quote form
+        window.submitQuoteRequest = submitQuoteRequest;
+        window.sendEmailNotification = sendDirectQuoteNotification;
+        window.sendAutoReply = sendDirectAutoReply;
+        window.sendMailtoFallback = sendMailtoFallback;
+        
+        console.log('Email integration loaded with API key: oacWTKWQd5Q-zibHK');
+    </script>
+
     <!-- Optimized Scripts -->
     <script>
         // Cookie Consent Management

@@ -556,9 +556,9 @@
                             </p>
                         </div>
                         <div class="newsletter-form">
-                            <form class="subscription-form">
+                            <form class="subscription-form" id="newsletterForm">
                                 <div class="form-group">
-                                    <input type="email" class="email-input" placeholder="Enter your email address" required>
+                                    <input type="email" id="newsletterEmail" name="email" class="email-input" placeholder="Enter your email address" required>
                                     <button type="submit" class="subscribe-btn">
                                         Subscribe <i class="fas fa-paper-plane"></i>
                                     </button>
@@ -699,6 +699,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    
+    <!-- Firebase SDK for Newsletter -->
+    <script type="module">
+        // Import Firebase configuration for newsletter
+        import { submitNewsletterSubscription } from './firebase-config.js';
+        
+        // Make newsletter function available globally
+        window.submitNewsletterSubscription = submitNewsletterSubscription;
+        
+        console.log('Newsletter Firebase integration loaded');
+    </script>
 
     <!-- Optimized Scripts -->
     <script>

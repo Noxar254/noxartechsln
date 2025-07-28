@@ -622,23 +622,98 @@ class QuoteFormManager {
             // Collect form data
             const formData = new FormData(this.form);
             const data = Object.fromEntries(formData);
-
-            // Simulate form submission (replace with actual submission logic)
-            await this.simulateSubmission(data);
-
-            // Show success message
-            this.showNotification('Quote request submitted successfully! We\'ll get back to you within 24 hours.', 'success');
             
-            // Reset form
-            this.form.reset();
-            
-            // Clear all field styles
-            const fields = this.form.querySelectorAll('input, select, textarea');
-            fields.forEach(field => this.clearErrors(field));
+            // Add metadata
+            data.submittedAt = new Date().toISOString();
+            data.userAgent = navigator.userAgent;
+            data.referrer = document.referrer;
+
+            console.log('Submitting quote request:', data);
+
+            // Submit to Firebase and send emails in parallel for better performance
+            const [firebaseResult, emailResult] = await Promise.allSettled([
+                window.submitQuoteRequest ? window.submitQuoteRequest(data) : this.fallbackSubmission(data),
+                this.tryEmailSubmission(data)
+            ]);
+
+            // Check Firebase submission result
+            const firebaseSuccess = firebaseResult.status === 'fulfilled' && firebaseResult.value.success;
+            const emailSuccess = emailResult.status === 'fulfilled' && emailResult.value.success;
+
+            // Log results for debugging
+            console.log('Firebase result:', firebaseResult);
+            console.log('Email result:', emailResult);
+
+            // Determine overall success
+            if (firebaseSuccess) {
+                // Send auto-reply to customer
+                try {
+                    if (window.sendAutoReply) {
+                        await window.sendAutoReply(data.email, `${data.firstName} ${data.lastName}`);
+                    }
+                } catch (autoReplyError) {
+                    console.warn('Auto-reply failed:', autoReplyError);
+                }
+
+                // Show success message
+                let successMessage = 'Quote request submitted successfully! We\'ll get back to you within 24 hours.';
+                if (emailSuccess) {
+                    successMessage += ' You should also receive a confirmation email shortly.';
+                } else {
+                    successMessage += ' (Note: Email notification may be delayed)';
+                }
+                
+                this.showNotification(successMessage, 'success');
+                
+                // Reset form
+                this.form.reset();
+                
+                // Clear all field styles
+                const fields = this.form.querySelectorAll('input, select, textarea');
+                fields.forEach(field => this.clearErrors(field));
+
+                // Track successful submission (if analytics available)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submit', {
+                        event_category: 'engagement',
+                        event_label: 'quote_request',
+                        custom_parameter: data.service
+                    });
+                }
+
+            } else {
+                // Firebase failed, try fallback
+                const fallbackResult = await this.fallbackSubmission(data);
+                if (fallbackResult.success) {
+                    this.showNotification('Quote request submitted via backup system. We\'ll get back to you within 24 hours.', 'success');
+                    this.form.reset();
+                } else {
+                    throw new Error('All submission methods failed');
+                }
+            }
 
         } catch (error) {
             console.error('Form submission error:', error);
-            this.showNotification('There was an error submitting your request. Please try again.', 'error');
+            
+            // Show user-friendly error message
+            let errorMessage = 'There was an error submitting your request. ';
+            
+            if (navigator.onLine === false) {
+                errorMessage += 'Please check your internet connection and try again.';
+            } else {
+                errorMessage += 'Please try again or contact us directly at info@noxartechsln.tech or +254762852457.';
+            }
+            
+            this.showNotification(errorMessage, 'error');
+            
+            // Track failed submission (if analytics available)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_error', {
+                    event_category: 'error',
+                    event_label: 'quote_request_failed',
+                    error_message: error.message
+                });
+            }
         } finally {
             // Restore button
             submitBtn.innerHTML = originalText;
@@ -646,13 +721,70 @@ class QuoteFormManager {
         }
     }
 
+    // Try multiple email methods
+    async tryEmailSubmission(data) {
+        try {
+            // Try EmailJS first
+            if (window.sendEmailNotification) {
+                const result = await window.sendEmailNotification(data);
+                if (result.success) {
+                    return result;
+                }
+            }
+            
+            // If EmailJS fails, try mailto fallback
+            if (window.sendMailtoFallback) {
+                console.log('EmailJS failed, using mailto fallback');
+                return window.sendMailtoFallback(data);
+            }
+            
+            return { success: false, error: 'No email methods available' };
+        } catch (error) {
+            console.error('Email submission error:', error);
+            
+            // Last resort: try mailto
+            if (window.sendMailtoFallback) {
+                console.log('Using mailto as last resort');
+                return window.sendMailtoFallback(data);
+            }
+            
+            return { success: false, error: error.message };
+        }
+    }
+
+    // Fallback submission method using FormSpree or similar service
+    async fallbackSubmission(data) {
+        try {
+            // You can replace this with FormSpree, Netlify Forms, or any other form service
+            const fallbackEndpoint = 'https://formspree.io/f/YOUR_FORM_ID'; // Replace with your endpoint
+            
+            const response = await fetch(fallbackEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                console.log('Fallback submission successful');
+                return { success: true };
+            } else {
+                throw new Error('Fallback submission failed');
+            }
+        } catch (error) {
+            console.error('Fallback submission error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
     async simulateSubmission(data) {
-        // Simulate API call delay
+        // Keep this as a last resort fallback
         return new Promise((resolve) => {
             setTimeout(() => {
-                console.log('Quote request data:', data);
-                resolve();
-            }, 2000);
+                console.log('Quote request data (simulated):', data);
+                resolve({ success: true });
+            }, 1000);
         });
     }
 
@@ -714,7 +846,226 @@ class QuoteFormManager {
     }
 }
 
-// Initialize Quote Form Manager when DOM is loaded
+// Newsletter Subscription Manager
+class NewsletterManager {
+    constructor() {
+        this.form = document.getElementById('newsletterForm');
+        this.init();
+    }
+
+    init() {
+        if (this.form) {
+            this.bindEvents();
+        }
+    }
+
+    bindEvents() {
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Add real-time email validation
+        const emailInput = this.form.querySelector('#newsletterEmail');
+        if (emailInput) {
+            emailInput.addEventListener('blur', () => this.validateEmail(emailInput));
+            emailInput.addEventListener('input', () => this.clearErrors(emailInput));
+        }
+    }
+
+    validateEmail(emailInput) {
+        const email = emailInput.value.trim();
+        
+        // Clear previous errors
+        this.clearErrors(emailInput);
+
+        if (!email) {
+            this.showFieldError(emailInput, 'Email is required');
+            return false;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            this.showFieldError(emailInput, 'Please enter a valid email address');
+            return false;
+        }
+
+        this.showFieldSuccess(emailInput);
+        return true;
+    }
+
+    showFieldError(field, message) {
+        field.style.borderColor = '#ef4444';
+        field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+        
+        // Create or update error message
+        let errorDiv = field.parentNode.querySelector('.newsletter-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'newsletter-error';
+            errorDiv.style.cssText = 'color: #ef4444; font-size: 0.875rem; margin-top: 5px; position: absolute;';
+            field.parentNode.style.position = 'relative';
+            field.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+
+    showFieldSuccess(field) {
+        field.style.borderColor = '#22c55e';
+        field.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.1)';
+    }
+
+    clearErrors(field) {
+        field.style.borderColor = '';
+        field.style.boxShadow = '';
+        
+        const errorDiv = field.parentNode.querySelector('.newsletter-error');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+
+        const emailInput = this.form.querySelector('#newsletterEmail');
+        const submitBtn = this.form.querySelector('.subscribe-btn');
+        
+        if (!this.validateEmail(emailInput)) {
+            return;
+        }
+
+        const email = emailInput.value.trim();
+        const originalBtnContent = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+        submitBtn.disabled = true;
+
+        try {
+            console.log('Submitting newsletter subscription for:', email);
+
+            // Submit to Firebase
+            const result = await this.submitToFirebase(email);
+
+            if (result.success) {
+                // Show success message
+                this.showSuccessMessage('Thank you for subscribing! You\'ll receive our latest updates.');
+                
+                // Reset form
+                this.form.reset();
+                this.clearErrors(emailInput);
+
+                // Track successful subscription (if analytics available)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'newsletter_subscribe', {
+                        event_category: 'engagement',
+                        event_label: 'newsletter_subscription'
+                    });
+                }
+            } else {
+                throw new Error(result.error || 'Subscription failed');
+            }
+
+        } catch (error) {
+            console.error('Newsletter subscription error:', error);
+            this.showErrorMessage('There was an error subscribing. Please try again.');
+            
+            // Track failed subscription (if analytics available)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'newsletter_error', {
+                    event_category: 'error',
+                    event_label: 'newsletter_subscription_failed',
+                    error_message: error.message
+                });
+            }
+        } finally {
+            // Restore button
+            submitBtn.innerHTML = originalBtnContent;
+            submitBtn.disabled = false;
+        }
+    }
+
+    async submitToFirebase(email) {
+        try {
+            if (window.submitNewsletterSubscription) {
+                return await window.submitNewsletterSubscription(email);
+            } else {
+                console.warn('Firebase newsletter function not available');
+                return { success: false, error: 'Service not available' };
+            }
+        } catch (error) {
+            console.error('Firebase submission error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+
+    showSuccessMessage(message) {
+        this.showMessage(message, 'success');
+    }
+
+    showErrorMessage(message) {
+        this.showMessage(message, 'error');
+    }
+
+    showMessage(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `newsletter-notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close">&times;</button>
+            </div>
+        `;
+
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: ${type === 'success' ? '#22c55e' : '#ef4444'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+
+        // Add to page
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Handle close button
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            this.hideMessage(notification);
+        });
+
+        // Auto hide after 4 seconds
+        setTimeout(() => {
+            this.hideMessage(notification);
+        }, 4000);
+    }
+
+    hideMessage(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }
+}
+
+// Initialize managers when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new QuoteFormManager();
+    new NewsletterManager();
 });
