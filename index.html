@@ -37,16 +37,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
     
-    <!-- Preload critical resources -->
+    <!-- Critical resource hints -->
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="images/logo.png" as="image" type="image/png">
     <link rel="preload" href="images/hero section.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="firebase-performance.js" as="script">
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="//images.pexels.com">
+    <link rel="dns-prefetch" href="//firebase.googleapis.com">
+    <link rel="dns-prefetch" href="//firestore.googleapis.com">
+    
+    <!-- Preconnect to critical third parties -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://firebase.googleapis.com">
+    <link rel="preconnect" href="https://firestore.googleapis.com">
     
     <title>Noxartech Solution - Tech Solutions</title>
     
@@ -703,15 +713,18 @@
     <!-- Configuration -->
     <script src="config.js"></script>
     
-    <!-- Firebase SDK for Newsletter -->
+    <!-- Firebase SDK for Newsletter with Performance -->
     <script type="module">
-        // Import Firebase configuration for newsletter
-        import { submitNewsletterSubscription } from './firebase-config.js';
+        // Import performance-optimized Firebase configuration
+        import { submitNewsletterSubscription, initializePerformanceMonitoring } from './firebase-performance.js';
         
         // Make newsletter function available globally
         window.submitNewsletterSubscription = submitNewsletterSubscription;
         
-        console.log('Newsletter Firebase integration loaded');
+        // Initialize performance monitoring
+        initializePerformanceMonitoring();
+        
+        console.log('Newsletter Firebase integration with performance monitoring loaded');
     </script>
 
     <!-- Optimized Scripts -->
@@ -738,8 +751,10 @@
             console.log('Cookies declined - Analytics disabled');
         }
 
-        // Optimized DOM initialization
+        // Optimized DOM initialization with performance monitoring
         document.addEventListener('DOMContentLoaded', () => {
+            const startTime = performance.now();
+            
             checkCookieConsent();
             
             // Lazy load images if needed
@@ -754,9 +769,50 @@
                             imageObserver.unobserve(img);
                         }
                     });
+                }, { 
+                    rootMargin: '50px' // Start loading images 50px before they come into view
                 });
                 
                 images.forEach(img => imageObserver.observe(img));
+            }
+            
+            // Optimize video loading
+            const heroVideo = document.querySelector('.hero-video');
+            if (heroVideo) {
+                // Preload video metadata for faster playback
+                heroVideo.preload = 'metadata';
+                
+                // Add intersection observer for video to save bandwidth
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            heroVideo.play();
+                        } else {
+                            heroVideo.pause();
+                        }
+                    });
+                });
+                
+                videoObserver.observe(heroVideo);
+            }
+            
+            // Preload next page resources when user shows intent
+            const ctaButtons = document.querySelectorAll('a[href="quote.html"]');
+            ctaButtons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.href = 'quote.html';
+                    document.head.appendChild(link);
+                }, { once: true });
+            });
+            
+            const endTime = performance.now();
+            console.log(`DOM initialization took ${endTime - startTime} milliseconds`);
+            
+            // Send performance data to Firebase if available
+            if (window.ga) {
+                window.ga('send', 'timing', 'JS Dependencies', 'load', Math.round(endTime - startTime));
             }
         });
 

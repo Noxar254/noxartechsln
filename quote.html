@@ -308,10 +308,10 @@
     <!-- Configuration -->
     <script src="config.js"></script>
     
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK with Performance -->
     <script type="module">
-        // Import Firebase configuration
-        import { submitQuoteRequest } from './firebase-config.js';
+        // Import performance-optimized Firebase configuration
+        import { submitQuoteRequest, initializePerformanceMonitoring } from './firebase-performance.js';
         import { sendDirectQuoteNotification, sendDirectAutoReply, sendMailtoFallback } from './direct-email.js';
         
         // Make functions available globally for the quote form
@@ -320,7 +320,10 @@
         window.sendAutoReply = sendDirectAutoReply;
         window.sendMailtoFallback = sendMailtoFallback;
         
-        console.log('Email integration loaded with API key: oacWTKWQd5Q-zibHK');
+        // Initialize performance monitoring
+        initializePerformanceMonitoring();
+        
+        console.log('Quote form with performance optimization loaded');
     </script>
 
     <!-- Optimized Scripts -->
