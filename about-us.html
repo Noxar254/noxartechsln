@@ -196,35 +196,40 @@
 
         /* Vision, Mission, Core Values */
         .values-section {
-            padding: 4rem 0;
+            padding: 2.5rem 0;
             background: var(--surface-color);
         }
 
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
+            align-items: stretch;
         }
 
         .value-card {
             background: var(--background-color);
-            padding: 2rem;
-            border-radius: 12px;
+            padding: 1.5rem;
+            border-radius: 8px;
             box-shadow: var(--shadow-light);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid var(--border-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .value-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-medium);
         }
 
         .value-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             border-radius: 50%;
             display: flex;
@@ -232,18 +237,83 @@
             justify-content: center;
             margin: 0 auto 1rem auto;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            flex-shrink: 0;
         }
 
         .value-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
             color: var(--primary-color);
+            font-weight: 600;
         }
 
         .value-card p {
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        /* Core Values Subsection */
+        .core-values-section {
+            padding: 2rem 0;
+            background: var(--background-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .core-values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .core-value-item {
+            background: var(--surface-color);
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .core-value-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .core-value-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.8rem auto;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .core-value-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .core-value-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .core-values-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.6rem;
         }
 
         /* Team Section */
@@ -338,6 +408,44 @@
             box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
         }
 
+        /* Tablet and larger screens - keep horizontal layout */
+        @media (min-width: 769px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .core-values-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Medium tablets */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .value-card {
+                padding: 1.3rem;
+            }
+            
+            .value-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .value-card p {
+                font-size: 0.9rem;
+            }
+            
+            .core-value-item {
+                padding: 1rem;
+            }
+            
+            .core-value-item h4 {
+                font-size: 1rem;
+            }
+            
+            .core-value-item p {
+                font-size: 0.8rem;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .about-hero {
@@ -412,18 +520,73 @@
             }
 
             .values-section {
-                padding: 3rem 0;
+                padding: 2rem 0;
             }
 
             .values-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-                margin-top: 2rem;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .core-values-section {
+                padding: 1.5rem 0;
+            }
+
+            .core-values-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+                margin-top: 1rem;
+            }
+
+            .core-value-item {
+                padding: 1rem;
+            }
+
+            .core-value-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .core-value-item h4 {
+                font-size: 1rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .core-value-item p {
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+
+            .core-values-title {
+                font-size: 1.4rem;
+                margin-bottom: 0.3rem;
+                padding: 0 1rem;
             }
 
             .value-card {
                 margin: 0 0.5rem;
-                padding: 1.5rem;
+                padding: 1.2rem;
+                text-align: left;
+            }
+
+            .value-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .value-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .value-card p {
+                font-size: 0.9rem;
+                line-height: 1.4;
             }
 
             .team-section {
@@ -437,9 +600,9 @@
             }
 
             .founder-image {
-                max-width: 100%;
-                margin: 0 -1rem;
-                width: calc(100% + 2rem);
+                max-width: 100vw;
+                margin: 0 calc(-50vw + 50%);
+                width: 100vw;
                 border-radius: 0;
             }
 
@@ -502,13 +665,14 @@
             }
 
             .section-title {
-                font-size: 2rem;
-                margin-bottom: 1rem;
+                font-size: 1.6rem;
+                margin-bottom: 0.4rem;
             }
 
             .section-subtitle {
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
                 padding: 0 1rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -532,14 +696,15 @@
         .section-title {
             text-align: center;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
         }
 
         .team-title {
@@ -709,15 +874,42 @@
                     <h3>Our Mission</h3>
                     <p>To deliver cutting-edge technology solutions that transform business operations, enhance customer experiences, and drive measurable results while building long-term partnerships based on trust and excellence.</p>
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values Subsection -->
+    <section class="core-values-section">
+        <div class="slim-container">
+            <h3 class="core-values-title">Our Core Values</h3>
+            <div class="core-values-grid">
+                <div class="core-value-item">
+                    <div class="core-value-icon">
+                        <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3>Core Values</h3>
-                    <p><strong>Innovation:</strong> Embracing new technologies and creative solutions<br>
-                    <strong>Excellence:</strong> Delivering quality in every project<br>
-                    <strong>Integrity:</strong> Building trust through transparency<br>
-                    <strong>Collaboration:</strong> Working together for success</p>
+                    <h4>Innovation</h4>
+                    <p>Embracing new technologies and creative solutions</p>
+                </div>
+                <div class="core-value-item">
+                    <div class="core-value-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Excellence</h4>
+                    <p>Delivering quality in every project</p>
+                </div>
+                <div class="core-value-item">
+                    <div class="core-value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4>Integrity</h4>
+                    <p>Building trust through transparency</p>
+                </div>
+                <div class="core-value-item">
+                    <div class="core-value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Collaboration</h4>
+                    <p>Working together for success</p>
                 </div>
             </div>
         </div>
@@ -729,7 +921,7 @@
             <h2 class="team-title">Meet Our Founder</h2>
             <div class="team-founder">
                 <div class="founder-image">
-                    <img src="images/office.jpg" alt="Founder - Noxartech Solution">
+                    <img src="images/humphrey profile.jpg" alt="Humphrey Abwao - Founder & CEO">
                 </div>
                 <div class="founder-details">
                     <h3>Humphrey Abwao</h3>
