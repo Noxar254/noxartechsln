@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noxartech Solution - Leading technology company providing innovative digital solutions, web development, app development, and IT consulting services.">
+    <meta name="keywords" content="web development, app development, digital solutions, IT consulting, Noxartech Solution">
+    <meta name="author" content="Noxartech Solution">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Noxartech">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="images/logo.png" as="image" type="image/png">
+    <link rel="preload" href="images/humphrey profile.jpg" as="image" type="image/jpeg">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    
     <title>About Us - Noxartech Solution</title>
+    
+    <!-- Optimized font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS inline or external -->
     <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
     <style>
-        /* About Us Page Specific Styles */
+        /* About Us Page Specific Styles - Optimized */
         .about-hero {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
             color: white;
@@ -18,6 +50,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            will-change: transform;
         }
 
         .about-hero::before {
@@ -30,6 +63,7 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
             background-size: 50px 50px;
             animation: float 20s infinite linear;
+            will-change: transform;
         }
 
         @keyframes float {
@@ -144,10 +178,11 @@
             height: 300px;
             object-fit: cover;
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .slim-image:hover img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         /* Stats Section */
@@ -716,6 +751,112 @@
         .arrow-icon {
             margin-left: 0.5rem;
         }
+
+        /* Cookie Consent Banner */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border-top: 2px solid var(--primary-color);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .cookie-text {
+            flex: 1;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .cookie-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .cookie-text a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .cookie-accept:hover {
+            background: var(--primary-hover);
+        }
+
+        .cookie-decline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .cookie-decline:hover {
+            background: var(--border-color);
+        }
+
+        /* Mobile Cookie Consent */
+        @media (max-width: 768px) {
+            .cookie-consent {
+                padding: 1rem;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+
+            .cookie-text {
+                font-size: 0.85rem;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .cookie-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -823,7 +964,7 @@
                     <p>With a commitment to excellence and innovation, we have successfully delivered over 200+ projects, helping businesses achieve their digital goals and accelerate growth.</p>
                 </div>
                 <div class="slim-image">
-                    <img src="images/office.jpg" alt="Noxartech Solution Office">
+                    <img src="images/office.jpg" alt="Noxartech Solution Office" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -921,7 +1062,7 @@
             <h2 class="team-title">Meet Our Founder</h2>
             <div class="team-founder">
                 <div class="founder-image">
-                    <img src="images/humphrey profile.jpg" alt="Humphrey Abwao - Founder & CEO">
+                    <img src="images/humphrey profile.jpg" alt="Humphrey Abwao - Founder & CEO" loading="lazy" decoding="async">
                 </div>
                 <div class="founder-details">
                     <h3>Humphrey Abwao</h3>
@@ -947,18 +1088,57 @@
         </div>
     </section>
 
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                🍪 We use cookies to enhance your browsing experience and analyze our traffic. 
+                <a href="#privacy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optimized Scripts -->
     <script>
-        // Counting Animation
+        // Cookie Consent Management
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                setTimeout(() => {
+                    document.getElementById('cookieConsent').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').classList.remove('show');
+            // Initialize analytics or other tracking here
+            console.log('Cookies accepted - Analytics enabled');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieConsent').classList.remove('show');
+            console.log('Cookies declined - Analytics disabled');
+        }
+
+        // Optimized Counter Animation with Intersection Observer
+        let countersAnimated = false;
         function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
+            if (countersAnimated) return;
+            countersAnimated = true;
             
+            const counters = document.querySelectorAll('.stat-number');
             counters.forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-count'));
-                const label = counter.nextElementSibling.textContent.toLowerCase();
-                const shouldAddPlus = label.includes('customers') || label.includes('team members');
-                
-                const duration = 2000; // 2 seconds
-                const increment = target / (duration / 16); // 60fps
+                const duration = 1500; // Reduced for faster animation
+                const increment = target / (duration / 16);
                 let current = 0;
                 
                 const updateCounter = () => {
@@ -967,19 +1147,18 @@
                         counter.textContent = Math.floor(current);
                         requestAnimationFrame(updateCounter);
                     } else {
-                        counter.textContent = shouldAddPlus ? target + '+' : target;
+                        counter.textContent = target;
                         counter.classList.add('animated');
                     }
                 };
-                
                 updateCounter();
             });
         }
 
-        // Intersection Observer for triggering animations
+        // Intersection Observer for performance
         const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -991,27 +1170,65 @@
             });
         }, observerOptions);
 
-        // Start observing the stats section
+        // Optimized smooth scrolling
+        function smoothScroll(target) {
+            const element = document.querySelector(target);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // DOM Content Loaded - Optimized initialization
         document.addEventListener('DOMContentLoaded', () => {
+            // Check cookie consent
+            checkCookieConsent();
+            
+            // Initialize stats observer
             const statsSection = document.querySelector('.stats-section');
             if (statsSection) {
                 observer.observe(statsSection);
             }
+            
+            // Optimized smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    if (target && target !== '#') {
+                        smoothScroll(target);
+                    }
+                });
+            });
+            
+            // Lazy load images if needed
+            const images = document.querySelectorAll('img[data-src]');
+            if (images.length > 0) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                images.forEach(img => imageObserver.observe(img));
+            }
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // Service Worker for caching (if supported)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
             });
-        });
+        }
     </script>
     <script src="script.js"></script>
 </body>

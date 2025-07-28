@@ -3,12 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noxartech Solution - Leading technology company providing innovative digital solutions, web development, app development, and comprehensive IT services.">
+    <meta name="keywords" content="web development, app development, digital solutions, IT consulting, Noxartech Solution, technology services">
+    <meta name="author" content="Noxartech Solution">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Noxartech">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="images/logo.png" as="image" type="image/png">
+    <link rel="preload" href="images/hero section.mp4" as="video" type="video/mp4">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//images.pexels.com">
+    
     <title>Noxartech Solution - Tech Solutions</title>
+    
+    <!-- Optimized font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS inline or external -->
     <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -154,7 +187,7 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="images/office.jpg" alt="Noxartech Solution Office" class="about-img">
+                    <img src="images/office.jpg" alt="Noxartech Solution Office" class="about-img" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -279,7 +312,7 @@
                     <!-- E-commerce Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg" alt="E-commerce Website" class="project-img">
+                            <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg" alt="E-commerce Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">E-commerce Platform</h3>
@@ -291,7 +324,7 @@
                     <!-- Car Rental & Sales Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg" alt="Car Rental Website" class="project-img">
+                            <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg" alt="Car Rental Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Car Rental & Sales</h3>
@@ -303,7 +336,7 @@
                     <!-- Properties Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg" alt="Properties Website" class="project-img">
+                            <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg" alt="Properties Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Real Estate Platform</h3>
@@ -315,7 +348,7 @@
                     <!-- Car Wash Management -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg" alt="Car Wash Management" class="project-img">
+                            <img src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg" alt="Car Wash Management" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Car Wash Management</h3>
@@ -327,7 +360,7 @@
                     <!-- Tour & Travel Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg" alt="Tour & Travel Website" class="project-img">
+                            <img src="https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg" alt="Tour & Travel Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Tour & Travel Portal</h3>
@@ -339,7 +372,7 @@
                     <!-- Hospital Management System -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg" alt="Hospital Management" class="project-img">
+                            <img src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg" alt="Hospital Management" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Hospital Management</h3>
@@ -351,7 +384,7 @@
                     <!-- Hospital Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg" alt="Hospital Website" class="project-img">
+                            <img src="https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg" alt="Hospital Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Hospital Website</h3>
@@ -385,7 +418,7 @@
                 <!-- Featured Article -->
                 <div class="featured-article">
                     <div class="featured-article-image">
-                        <img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg" alt="Future of Web Development" class="featured-img">
+                        <img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg" alt="Future of Web Development" class="featured-img" loading="lazy" decoding="async">
                         <div class="featured-overlay">
                             <span class="featured-badge">Featured</span>
                         </div>
@@ -410,7 +443,7 @@
                     <!-- Article 1 -->
                     <article class="article-item">
                         <div class="article-image-container">
-                            <img src="https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg" alt="Cybersecurity Best Practices" class="article-img">
+                            <img src="https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg" alt="Cybersecurity Best Practices" class="article-img" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -430,7 +463,7 @@
                     <!-- Article 2 -->
                     <article class="article-item">
                         <div class="article-image-container">
-                            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Cloud Migration" class="article-img">
+                            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Cloud Migration" class="article-img" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -450,7 +483,7 @@
                     <!-- Article 3 -->
                     <article class="article-item">
                         <div class="article-image-container">
-                            <img src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg" alt="Mobile App Trends" class="article-img">
+                            <img src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg" alt="Mobile App Trends" class="article-img" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -470,7 +503,7 @@
                     <!-- Article 4 -->
                     <article class="article-item">
                         <div class="article-image-container">
-                            <img src="https://images.pexels.com/photos/3861961/pexels-photo-3861961.jpeg" alt="AI in Business" class="article-img">
+                            <img src="https://images.pexels.com/photos/3861961/pexels-photo-3861961.jpeg" alt="AI in Business" class="article-img" loading="lazy" decoding="async">
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
@@ -633,6 +666,76 @@
         </a>
     </div>
 
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                🍪 We use cookies to enhance your browsing experience and analyze our traffic. 
+                <a href="#privacy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
+                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optimized Scripts -->
+    <script>
+        // Cookie Consent Management
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                setTimeout(() => {
+                    document.getElementById('cookieConsent').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').classList.remove('show');
+            console.log('Cookies accepted - Analytics enabled');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieConsent').classList.remove('show');
+            console.log('Cookies declined - Analytics disabled');
+        }
+
+        // Optimized DOM initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            checkCookieConsent();
+            
+            // Lazy load images if needed
+            const images = document.querySelectorAll('img[data-src]');
+            if (images.length > 0) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                images.forEach(img => imageObserver.observe(img));
+            }
+        });
+
+        // Service Worker for caching
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
