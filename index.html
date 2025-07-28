@@ -7,6 +7,25 @@
     <meta name="keywords" content="web development, app development, digital solutions, IT consulting, Noxartech Solution, technology services">
     <meta name="author" content="Noxartech Solution">
     
+    <!-- Cache busting for development -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- Force reload cache script -->
+    <script>
+        // Add timestamp to bypass cache for all images
+        function addTimestampToImages() {
+            const timestamp = new Date().getTime();
+            document.querySelectorAll('img').forEach(img => {
+                if (img.getAttribute('src') && !img.getAttribute('src').includes('?')) {
+                    img.setAttribute('src', img.getAttribute('src') + '?v=' + timestamp);
+                }
+            });
+        }
+        window.addEventListener('load', addTimestampToImages);
+    </script>
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563eb">
@@ -37,7 +56,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Critical CSS inline or external -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20250728_4">
     
     <!-- Load Font Awesome asynchronously -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -324,24 +343,24 @@
                     <!-- Car Rental & Sales Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg" alt="Car Rental Website" class="project-img" loading="lazy" decoding="async">
+                            <img src="images/Car Sale Website.png?v=20250728" alt="Car Rental Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Car Rental & Sales</h3>
                             <p class="project-description">Comprehensive automotive platform for vehicle rentals and sales with booking system and inventory management.</p>
-                            <button class="project-btn">View Project</button>
+                            <a href="https://www.openroadmarket.co.ke" target="_blank" rel="noopener" class="project-btn">View Project</a>
                         </div>
                     </div>
 
                     <!-- Properties Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg" alt="Properties Website" class="project-img" loading="lazy" decoding="async">
+                            <img src="images/real estate.png?v=20250728" alt="Properties Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Real Estate Platform</h3>
                             <p class="project-description">Advanced property listing platform with search filters, virtual tours, and agent management system.</p>
-                            <button class="project-btn">View Project</button>
+                            <a href="https://www.openroadmarket.co.ke/properties.html" target="_blank" rel="noopener" class="project-btn">View Project</a>
                         </div>
                     </div>
 
@@ -384,12 +403,12 @@
                     <!-- Hospital Website -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg" alt="Hospital Website" class="project-img" loading="lazy" decoding="async">
+                            <img src="images/hospital.png?v=20250728" alt="Hospital Website" class="project-img" loading="lazy" decoding="async">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Hospital Website</h3>
                             <p class="project-description">Professional healthcare website with doctor profiles, online appointments, and health information portal.</p>
-                            <button class="project-btn">View Project</button>
+                            <a href="https://www.hopewellhospital.online" target="_blank" rel="noopener" class="project-btn">View Project</a>
                         </div>
                     </div>
                 </div>
