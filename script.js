@@ -855,8 +855,25 @@ class NewsletterManager {
 
     init() {
         if (this.form) {
-            this.bindEvents();
+            // Wait for Firebase to be ready before binding events
+            this.waitForFirebase().then(() => {
+                this.bindEvents();
+                console.log('NewsletterManager initialized with Firebase ready');
+            });
         }
+    }
+
+    async waitForFirebase() {
+        return new Promise((resolve) => {
+            const checkFirebase = () => {
+                if (window.firebaseReady && window.submitNewsletterSubscription) {
+                    resolve();
+                } else {
+                    setTimeout(checkFirebase, 100);
+                }
+            };
+            checkFirebase();
+        });
     }
 
     bindEvents() {
@@ -967,7 +984,21 @@ class NewsletterManager {
 
         } catch (error) {
             console.error('Newsletter subscription error:', error);
-            this.showErrorMessage('There was an error subscribing. Please try again.');
+            
+            // Provide more specific error messages based on the error type
+            let errorMessage = 'There was an error subscribing. ';
+            
+            if (error.message && error.message.includes('permission-denied')) {
+                errorMessage += 'Please check your internet connection and try again.';
+            } else if (error.message && error.message.includes('unavailable')) {
+                errorMessage += 'Service is temporarily unavailable. Please try again later.';
+            } else if (error.message && error.message.includes('Service not available')) {
+                errorMessage += 'Service is still loading. Please wait a moment and try again.';
+            } else {
+                errorMessage += 'Please try again or contact us directly at info@noxartechsln.tech.';
+            }
+            
+            this.showErrorMessage(errorMessage);
             
             // Track failed subscription (if analytics available)
             if (typeof gtag !== 'undefined') {
@@ -986,11 +1017,18 @@ class NewsletterManager {
 
     async submitToFirebase(email) {
         try {
+            console.log('submitToFirebase called with email:', email);
+            console.log('window.submitNewsletterSubscription available:', !!window.submitNewsletterSubscription);
+            console.log('window.firebaseReady:', window.firebaseReady);
+            
             if (window.submitNewsletterSubscription) {
-                return await window.submitNewsletterSubscription(email);
+                console.log('Calling window.submitNewsletterSubscription...');
+                const result = await window.submitNewsletterSubscription(email);
+                console.log('Firebase submission result:', result);
+                return result;
             } else {
                 console.warn('Firebase newsletter function not available');
-                return { success: false, error: 'Service not available' };
+                return { success: false, error: 'Service not available - Firebase function not loaded' };
             }
         } catch (error) {
             console.error('Firebase submission error:', error);

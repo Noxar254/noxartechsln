@@ -37,7 +37,7 @@ async function initializeDirectEmail() {
 }
 
 // Send quote notification directly to your email
-export async function sendDirectQuoteNotification(formData) {
+async function sendDirectQuoteNotification(formData) {
     try {
         await initializeDirectEmail();
         
@@ -98,7 +98,7 @@ Reply directly to this email to contact the client.
 }
 
 // Send auto-reply to customer
-export async function sendDirectAutoReply(customerEmail, customerName) {
+async function sendDirectAutoReply(customerEmail, customerName) {
     try {
         await initializeDirectEmail();
         
@@ -153,7 +153,7 @@ Noxartech Solution Team
 }
 
 // Fallback: Send simple email using mailto (opens email client)
-export function sendMailtoFallback(formData) {
+function sendMailtoFallback(formData) {
     const subject = encodeURIComponent(`Quote Request from ${formData.firstName} ${formData.lastName}`);
     const body = encodeURIComponent(`
 Name: ${formData.firstName} ${formData.lastName}
@@ -181,5 +181,3 @@ Additional Notes: ${formData.additionalNotes || 'None'}
 if (typeof window !== 'undefined') {
     initializeDirectEmail();
 }
-
-export { initializeDirectEmail };

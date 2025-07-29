@@ -713,18 +713,72 @@
     <!-- Configuration -->
     <script src="config.js"></script>
     
-    <!-- Firebase SDK for Newsletter with Performance -->
-    <script type="module">
-        // Import performance-optimized Firebase configuration
-        import { submitNewsletterSubscription, initializePerformanceMonitoring } from './firebase-performance.js';
-        
-        // Make newsletter function available globally
-        window.submitNewsletterSubscription = submitNewsletterSubscription;
-        
-        // Initialize performance monitoring
-        initializePerformanceMonitoring();
-        
-        console.log('Newsletter Firebase integration with performance monitoring loaded');
+    <!-- Firebase SDK CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-performance-compat.js"></script>
+    
+    <!-- Firebase Configuration and Functions -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWPrCiuY9yjvQMGiGzBDtndAa2FCLBX78",
+            authDomain: "noxartechsln.firebaseapp.com",
+            projectId: "noxartechsln",
+            storageBucket: "noxartechsln.firebasestorage.app",
+            messagingSenderId: "950592446485",
+            appId: "1:950592446485:web:f4642f47cbbb3888b0ee1c",
+            measurementId: "G-RT8E110P82"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const analytics = firebase.analytics();
+        const perf = firebase.performance();
+
+        // Newsletter subscription function
+        window.submitNewsletterSubscription = async function(email) {
+            try {
+                console.log('Submitting newsletter subscription to Firebase:', email);
+                
+                const docRef = await db.collection('newsletter-subscriptions').add({
+                    email: email,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: "active",
+                    source: "website",
+                    userAgent: navigator.userAgent,
+                    subscriptionTime: Date.now()
+                });
+
+                console.log("Newsletter subscription submitted with ID: ", docRef.id);
+                
+                // Track successful subscription
+                if (analytics) {
+                    analytics.logEvent('newsletter_subscribed', {
+                        subscription_time: Date.now()
+                    });
+                }
+
+                return { success: true, id: docRef.id };
+            } catch (error) {
+                console.error("Error adding newsletter subscription: ", error);
+                
+                // Track errors
+                if (analytics) {
+                    analytics.logEvent('newsletter_subscription_error', {
+                        error_message: error.message
+                    });
+                }
+                
+                return { success: false, error: error.message };
+            }
+        };
+
+        // Signal that Firebase is ready
+        window.firebaseReady = true;
+        console.log('Firebase newsletter integration loaded successfully');
     </script>
 
     <!-- Optimized Scripts -->

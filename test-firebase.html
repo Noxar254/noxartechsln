@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test</title>
+</head>
+<body>
+    <h1>Firebase Integration Test</h1>
+    <button id="testQuote">Test Quote Submission</button>
+    <button id="testNewsletter">Test Newsletter Subscription</button>
+    <div id="results"></div>
+
+    <!-- Firebase SDK CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWPrCiuY9yjvQMGiGzBDtndAa2FCLBX78",
+            authDomain: "noxartechsln.firebaseapp.com",
+            projectId: "noxartechsln",
+            storageBucket: "noxartechsln.firebasestorage.app",
+            messagingSenderId: "950592446485",
+            appId: "1:950592446485:web:f4642f47cbbb3888b0ee1c",
+            measurementId: "G-RT8E110P82"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const analytics = firebase.analytics();
+            console.log('Firebase initialized successfully');
+            document.getElementById('results').innerHTML += '<p>✅ Firebase initialized successfully</p>';
+        } catch (error) {
+            console.error('Firebase initialization failed:', error);
+            document.getElementById('results').innerHTML += '<p>❌ Firebase initialization failed: ' + error.message + '</p>';
+        }
+
+        // Test quote submission
+        document.getElementById('testQuote').addEventListener('click', async () => {
+            try {
+                const testData = {
+                    firstName: 'Test',
+                    lastName: 'User',
+                    email: 'test@example.com',
+                    phone: '+1234567890',
+                    service: 'web-development',
+                    description: 'Test quote request'
+                };
+                
+                const docRef = await db.collection('quote-requests').add({
+                    ...testData,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: "pending",
+                    source: "website",
+                    userAgent: navigator.userAgent,
+                    loadTime: performance.now()
+                });
+
+                console.log('Quote submission result:', docRef.id);
+                document.getElementById('results').innerHTML += '<p>✅ Quote submission successful: ' + docRef.id + '</p>';
+                
+            } catch (error) {
+                console.error('Quote submission error:', error);
+                document.getElementById('results').innerHTML += '<p>❌ Quote submission error: ' + error.message + '</p>';
+            }
+        });
+
+        // Test newsletter subscription
+        document.getElementById('testNewsletter').addEventListener('click', async () => {
+            try {
+                const docRef = await db.collection('newsletter-subscriptions').add({
+                    email: 'test@example.com',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: "active",
+                    source: "website"
+                });
+
+                console.log('Newsletter subscription result:', docRef.id);
+                document.getElementById('results').innerHTML += '<p>✅ Newsletter subscription successful: ' + docRef.id + '</p>';
+                
+            } catch (error) {
+                console.error('Newsletter subscription error:', error);
+                document.getElementById('results').innerHTML += '<p>❌ Newsletter subscription error: ' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>

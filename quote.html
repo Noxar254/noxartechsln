@@ -308,22 +308,87 @@
     <!-- Configuration -->
     <script src="config.js"></script>
     
-    <!-- Firebase SDK with Performance -->
-    <script type="module">
-        // Import performance-optimized Firebase configuration
-        import { submitQuoteRequest, initializePerformanceMonitoring } from './firebase-performance.js';
-        import { sendDirectQuoteNotification, sendDirectAutoReply, sendMailtoFallback } from './direct-email.js';
-        
-        // Make functions available globally for the quote form
-        window.submitQuoteRequest = submitQuoteRequest;
-        window.sendEmailNotification = sendDirectQuoteNotification;
-        window.sendAutoReply = sendDirectAutoReply;
-        window.sendMailtoFallback = sendMailtoFallback;
-        
-        // Initialize performance monitoring
-        initializePerformanceMonitoring();
-        
-        console.log('Quote form with performance optimization loaded');
+    <!-- Firebase SDK CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-performance-compat.js"></script>
+    
+    <!-- Firebase Configuration and Functions -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWPrCiuY9yjvQMGiGzBDtndAa2FCLBX78",
+            authDomain: "noxartechsln.firebaseapp.com",
+            projectId: "noxartechsln",
+            storageBucket: "noxartechsln.firebasestorage.app",
+            messagingSenderId: "950592446485",
+            appId: "1:950592446485:web:f4642f47cbbb3888b0ee1c",
+            measurementId: "G-RT8E110P82"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const analytics = firebase.analytics();
+        const perf = firebase.performance();
+
+        // Quote submission function
+        window.submitQuoteRequest = async function(formData) {
+            try {
+                console.log('Submitting quote request to Firebase:', formData);
+                
+                const docRef = await db.collection('quote-requests').add({
+                    ...formData,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: "pending",
+                    source: "website",
+                    userAgent: navigator.userAgent,
+                    loadTime: performance.now()
+                });
+
+                console.log("Quote request submitted with ID: ", docRef.id);
+                
+                // Track successful submission
+                if (analytics) {
+                    analytics.logEvent('quote_request_submitted', {
+                        submission_time: Date.now(),
+                        service_type: formData.service
+                    });
+                }
+
+                return { success: true, id: docRef.id };
+            } catch (error) {
+                console.error("Error adding quote request: ", error);
+                
+                // Track errors
+                if (analytics) {
+                    analytics.logEvent('quote_request_error', {
+                        error_message: error.message,
+                        error_code: error.code
+                    });
+                }
+                
+                return { success: false, error: error.message };
+            }
+        };
+
+        console.log('Firebase quote form integration loaded successfully');
+    </script>
+    
+    <!-- Direct Email Service -->
+    <script src="direct-email.js"></script>
+    <script>
+        // Make email functions available globally
+        if (typeof sendDirectQuoteNotification !== 'undefined') {
+            window.sendEmailNotification = sendDirectQuoteNotification;
+        }
+        if (typeof sendDirectAutoReply !== 'undefined') {
+            window.sendAutoReply = sendDirectAutoReply;
+        }
+        if (typeof sendMailtoFallback !== 'undefined') {
+            window.sendMailtoFallback = sendMailtoFallback;
+        }
     </script>
 
     <!-- Optimized Scripts -->
