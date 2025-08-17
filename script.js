@@ -1102,8 +1102,299 @@ class NewsletterManager {
     }
 }
 
+// Design Image Modal Manager
+class DesignModalManager {
+    constructor() {
+        this.modal = null;
+        this.init();
+    }
+
+    init() {
+        this.createModal();
+        this.bindEvents();
+    }
+
+    createModal() {
+        // Create modal HTML
+        const modalHTML = `
+            <div id="designModal" class="design-modal" style="display: none;">
+                <div class="design-modal-backdrop"></div>
+                <div class="design-modal-content">
+                    <button class="design-modal-close">&times;</button>
+                    <img class="design-modal-image" src="" alt="">
+                </div>
+            </div>
+        `;
+
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        this.modal = document.getElementById('designModal');
+
+        // Add modal styles
+        this.addModalStyles();
+    }
+
+    addModalStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .design-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .design-modal-backdrop {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+            }
+
+            .design-modal-content {
+                position: relative;
+                max-width: 90vw;
+                max-height: 90vh;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            }
+
+            .design-modal-close {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 1.5rem;
+                z-index: 10001;
+                transition: background 0.3s ease;
+            }
+
+            .design-modal-close:hover {
+                background: rgba(0, 0, 0, 0.9);
+            }
+
+            .design-modal-image {
+                width: 100%;
+                height: auto;
+                max-width: 80vw;
+                max-height: 80vh;
+                object-fit: contain;
+                display: block;
+            }
+
+            [data-theme="dark"] .design-modal-content {
+                background: var(--surface-color);
+            }
+
+            @media (max-width: 768px) {
+                .design-modal-content {
+                    max-width: 95vw;
+                    max-height: 95vh;
+                }
+
+                .design-modal-image {
+                    max-width: 90vw;
+                    max-height: 90vh;
+                }
+
+                .design-modal-close {
+                    top: 10px;
+                    right: 10px;
+                    width: 35px;
+                    height: 35px;
+                    font-size: 1.3rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    bindEvents() {
+        // Bind zoom button clicks
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.design-zoom-btn')) {
+                const button = e.target.closest('.design-zoom-btn');
+                const imageUrl = button.getAttribute('data-image');
+                this.openModal(imageUrl);
+            }
+        });
+
+        // Bind close events
+        if (this.modal) {
+            const closeBtn = this.modal.querySelector('.design-modal-close');
+            const backdrop = this.modal.querySelector('.design-modal-backdrop');
+
+            closeBtn.addEventListener('click', () => this.closeModal());
+            backdrop.addEventListener('click', () => this.closeModal());
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.modal.style.display !== 'none') {
+                    this.closeModal();
+                }
+            });
+        }
+    }
+
+    openModal(imageUrl) {
+        if (this.modal) {
+            const modalImage = this.modal.querySelector('.design-modal-image');
+            modalImage.src = imageUrl;
+            this.modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Animate in
+            requestAnimationFrame(() => {
+                this.modal.style.opacity = '0';
+                this.modal.style.transform = 'scale(0.9)';
+                this.modal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                
+                requestAnimationFrame(() => {
+                    this.modal.style.opacity = '1';
+                    this.modal.style.transform = 'scale(1)';
+                });
+            });
+        }
+    }
+
+    closeModal() {
+        if (this.modal) {
+            this.modal.style.opacity = '0';
+            this.modal.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                this.modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+}
+
+// Mobile Designs Manager
+class MobileDesignsManager {
+    constructor() {
+        this.viewAllBtn = document.getElementById('viewAllDesignsBtn');
+        this.hiddenCards = document.querySelectorAll('.design-card-hidden');
+        this.isExpanded = false;
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.updateButtonVisibility();
+    }
+
+    bindEvents() {
+        if (this.viewAllBtn) {
+            this.viewAllBtn.addEventListener('click', () => this.toggleDesigns());
+        }
+
+        // Update button visibility on window resize
+        window.addEventListener('resize', () => this.updateButtonVisibility());
+    }
+
+    updateButtonVisibility() {
+        if (this.viewAllBtn) {
+            // Show button only on mobile/tablet (768px and below)
+            if (window.innerWidth <= 768) {
+                this.viewAllBtn.style.display = 'block';
+            } else {
+                this.viewAllBtn.style.display = 'none';
+            }
+        }
+    }
+
+    toggleDesigns() {
+        this.isExpanded = !this.isExpanded;
+
+        if (this.isExpanded) {
+            this.showAllDesigns();
+        } else {
+            this.hideExtraDesigns();
+        }
+
+        this.updateButtonText();
+        this.moveButton();
+    }
+
+    showAllDesigns() {
+        this.hiddenCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('show');
+            }, index * 100); // Stagger animation
+        });
+    }
+
+    hideExtraDesigns() {
+        this.hiddenCards.forEach((card) => {
+            card.classList.remove('show');
+        });
+
+        // Scroll back to the designs section
+        const designsSection = document.getElementById('designs');
+        if (designsSection) {
+            designsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    moveButton() {
+        const mobileView = document.querySelector('.designs-mobile-view');
+        if (!mobileView || !this.viewAllBtn) return;
+
+        if (this.isExpanded) {
+            // Move button to the end (after all cards)
+            mobileView.appendChild(this.viewAllBtn);
+        } else {
+            // Move button back to after 4th card
+            const fourthCard = mobileView.children[3]; // 4th card (0-indexed)
+            if (fourthCard) {
+                // Insert button after the 4th card
+                fourthCard.insertAdjacentElement('afterend', this.viewAllBtn);
+            }
+        }
+    }
+
+    updateButtonText() {
+        if (this.viewAllBtn) {
+            const text = this.isExpanded ? 'Show Less' : 'View All Designs';
+            this.viewAllBtn.innerHTML = `
+                ${text}
+                <i class="fas fa-chevron-${this.isExpanded ? 'up' : 'down'}"></i>
+            `;
+
+            // Add/remove expanded class for icon rotation
+            if (this.isExpanded) {
+                this.viewAllBtn.classList.add('expanded');
+            } else {
+                this.viewAllBtn.classList.remove('expanded');
+            }
+        }
+    }
+}
+
 // Initialize managers when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new QuoteFormManager();
     new NewsletterManager();
+    new DesignModalManager();
+    new MobileDesignsManager();
 });
