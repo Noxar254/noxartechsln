@@ -1391,10 +1391,73 @@ class MobileDesignsManager {
     }
 }
 
+// Demo Modal Manager
+class DemoModalManager {
+    constructor() {
+        this.modal = document.getElementById('demoModal');
+        this.closeBtn = document.querySelector('.demo-modal-close');
+        this.projectBtns = document.querySelectorAll('.project-btn');
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Open modal when clicking on project buttons
+        this.projectBtns.forEach(btn => {
+            // Only add modal functionality to buttons (not links)
+            if (btn.tagName === 'BUTTON') {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openModal();
+                });
+            }
+        });
+
+        // Close modal events
+        if (this.closeBtn) {
+            this.closeBtn.addEventListener('click', () => this.closeModal());
+        }
+
+        // Close modal when clicking outside
+        if (this.modal) {
+            this.modal.addEventListener('click', (e) => {
+                if (e.target === this.modal) {
+                    this.closeModal();
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('show')) {
+                this.closeModal();
+            }
+        });
+    }
+
+    openModal() {
+        if (this.modal) {
+            this.modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    closeModal() {
+        if (this.modal) {
+            this.modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    }
+}
+
 // Initialize managers when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new QuoteFormManager();
     new NewsletterManager();
     new DesignModalManager();
     new MobileDesignsManager();
+    new DemoModalManager();
 });
